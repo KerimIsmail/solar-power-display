@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import axios from "axios";
+import ChartDisplay from "./components/chartDisplay/ChartDisplay";
+import NumberDisplay from "./components/numberDisplay/NumberDisplay";
 
-function App() {
+export default function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -19,9 +20,15 @@ function App() {
   return (
     <>
       <h1>Solar Power Display</h1>
-      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+      <h1>1000 Watt</h1>
+      
+      <ChartDisplay title="Prognose" />
+      {/*data && <pre>{JSON.stringify(data, null, 2)}</pre>*/}
+
+      <div>
+        <NumberDisplay title="Tagesertrag" number={123} />
+        <NumberDisplay title="Gesamtertrag" number={1000} />
+      </div>
     </>
   );
 }
-
-export default App;
