@@ -5,26 +5,43 @@ import SingleNumberDisplay from "@/components/singleNumberDisplay/SingleNumberDi
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+const chartData = [
+  { timestamp: 1701093891520, watt: 152 },
+  { timestamp: 1701093901520, watt: 284 },
+  { timestamp: 1701093911520, watt: 498 },
+  { timestamp: 1701093921520, watt: 207 },
+];
+
 export default function Dashboard() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts/1")
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-    // {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+    const fetchData = () => {
+      axios
+        .get("http://192.168.188.144:5000/measurements")
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    };
+
+    fetchData();
+
+    const interval = setInterval(() => {
+      console.log("Updating data...");
+      fetchData();
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <>
       <SingleNumberDisplay content="1000" />
 
-      <ChartDisplay title="t" />
+      <ChartDisplay title="Verlauf" data={chartData} />
 
       <div className="flex gap-5">
         <NumberDisplay
@@ -40,6 +57,8 @@ export default function Dashboard() {
       </div>
 
       <ModeToggle />
+
+      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
     </>
   );
 }

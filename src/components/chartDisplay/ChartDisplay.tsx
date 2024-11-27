@@ -14,39 +14,44 @@ import {
 } from "../ui/card";
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  watt: {
+    label: "Watt",
     color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-];
-
 type Props = {
   title: string;
+  description?: string;
+  data: any;
 };
 
-export default function ChartDisplay({ title }: Readonly<Props>) {
+export default function ChartDisplay({
+  title,
+  description,
+  data,
+}: Readonly<Props>) {
+  const formatTimestampToTime = (timestamp) => {
+    const date = new Date(timestamp);
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  };
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Verlauf</CardTitle>
-        <CardDescription>
-          Showing total watt for the last 6 months
-        </CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-[300px] min-w-[100%]">
+        <ChartContainer
+          config={chartConfig}
+          className="max-h-[300px] min-w-[100%]"
+        >
           <AreaChart
             accessibilityLayer
-            data={chartData}
+            data={data}
             margin={{
               left: 0,
               right: 12,
@@ -54,38 +59,34 @@ export default function ChartDisplay({ title }: Readonly<Props>) {
           >
             <CartesianGrid vertical={true} />
             <XAxis
-              dataKey="month"
+              dataKey="timestamp"
               tickLine={true}
               axisLine={true}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={formatTimestampToTime}
             />
-            <YAxis
-              tickLine={true}
-              axisLine={true}
-              tickMargin={8}
-            />
+            <YAxis tickLine={true} axisLine={true} tickMargin={8} />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <defs>
-              <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillWatt" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-desktop)"
+                  stopColor="var(--color-watt)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-desktop)"
+                  stopColor="var(--color-watt)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
             </defs>
             <Area
-              dataKey="desktop"
+              dataKey="watt"
               type="natural"
-              fill="url(#fillDesktop)"
+              fill="url(#fillWatt)"
               fillOpacity={0.4}
-              stroke="var(--color-desktop)"
+              stroke="var(--color-watt)"
               stackId="a"
             />
           </AreaChart>
