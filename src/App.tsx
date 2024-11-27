@@ -1,13 +1,12 @@
-import { Button } from "./components/ui/button";
 import { ThemeProvider } from "./components/theme-provider";
-import { ModeToggle } from "./components/mode-toggle";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Button>Clicke Me</Button>
-
-      <ModeToggle />
+      <div className="m-10 flex flex-col gap-10">
+        <Dashboard />
+      </div>
     </ThemeProvider>
   );
 }

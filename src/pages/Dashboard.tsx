@@ -1,4 +1,4 @@
-import ChartDisplay from "@/components/chartDisplay/ChartDisplay";
+import { ModeToggle } from "@/components/mode-toggle";
 import NumberDisplay from "@/components/numberDisplay/NumberDisplay";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -15,20 +15,19 @@ export default function Dashboard() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+    // {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
   }, []);
 
   return (
-    <div>
-      <h1>Solar Power Display</h1>
-      <h1>1000 Watt</h1>
+    <>
+      <NumberDisplay title="Jetzt" datum="12.08.2000" number={123} />
 
-      <ChartDisplay title="Prognose" />
-      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
-
-      <div>
-        <NumberDisplay title="Tagesertrag" number={123} />
-        <NumberDisplay title="Gesamtertrag" number={1000} />
+      <div className="flex gap-10">
+        <NumberDisplay title="Tagesertrag" datum="12.08.2000" number={123} />
+        <NumberDisplay title="Gesamtertrag" datum="12.08.2000" number={1000} />
       </div>
-    </div>
+
+      <ModeToggle />
+    </>
   );
 }
