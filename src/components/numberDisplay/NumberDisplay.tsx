@@ -25,7 +25,10 @@ export default function NumberDisplay({
       </CardHeader>
       {content && (
         <CardContent className="flex justify-center font-bold text-3xl pb-8">
-          <p>{content}</p>
+          <p>
+            {content}{" "}
+            <span className="text-muted-foreground text-2xl">kWh</span>
+          </p>
         </CardContent>
       )}
     </Card>
