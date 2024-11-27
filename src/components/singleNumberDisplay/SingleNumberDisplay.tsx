@@ -15,7 +15,7 @@ export default function SingleNumberDisplay({ content }: Readonly<Props>) {
 
             <p>{content}</p>
 
-            <CardDescription className="text-4xl">kWh</CardDescription>
+            <CardDescription className="text-4xl">W</CardDescription>
           </div>
         </div>
       </CardContent>

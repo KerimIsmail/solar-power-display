@@ -82,7 +82,7 @@ export default function ChartDisplay({
               </linearGradient>
             </defs>
             <Area
-              dataKey="watt"
+              dataKey="currentEnergy"
               type="natural"
               fill="url(#fillWatt)"
               fillOpacity={0.4}

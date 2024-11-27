@@ -5,20 +5,18 @@ import SingleNumberDisplay from "@/components/singleNumberDisplay/SingleNumberDi
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const chartData = [
-  { timestamp: 1701093891520, watt: 152 },
-  { timestamp: 1701093901520, watt: 284 },
-  { timestamp: 1701093911520, watt: 498 },
-  { timestamp: 1701093921520, watt: 207 },
-];
-
+type DataType = {
+  daylie: string;
+  total: string;
+  measurements: [];
+};
 export default function Dashboard() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<null | DataType>(null);
 
   useEffect(() => {
     const fetchData = () => {
       axios
-        .get("http://192.168.188.144:5000/measurements")
+        .get("http://localhost:5000/measurements")
         .then((response) => {
           setData(response.data);
         })
@@ -30,35 +28,37 @@ export default function Dashboard() {
     fetchData();
 
     const interval = setInterval(() => {
-      console.log("Updating data...");
       fetchData();
     }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
+  function getCurrentDate() {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, "0"); // Tag mit führender Null
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // Monat mit führender Null (Januar ist 0)
+    const year = today.getFullYear();
+
+    return `${day}.${month}.${year}`;
+  }
+
   return (
     <>
-      <SingleNumberDisplay content="1000" />
+      {data && (
+        <>
+          <SingleNumberDisplay content={data.measurements[data.measurements.length - 1].currentEnergy} />
 
-      <ChartDisplay title="Verlauf" data={chartData} />
+          <ChartDisplay title="Verlauf" data={data.measurements} />
 
-      <div className="flex gap-5">
-        <NumberDisplay
-          title="Tagesertrag"
-          description="27.11.2024"
-          content="123"
-        />
-        <NumberDisplay
-          title="Gesamtertrag"
-          description="Seit 2004"
-          content="1000"
-        />
-      </div>
+          <div className="flex gap-5">
+            <NumberDisplay title="Tagesertrag" description={getCurrentDate()} content={data.daylie} />
+            <NumberDisplay title="Gesamtertrag" description="Seit 2011" content={data.total} />
+          </div>
 
-      <ModeToggle />
-
-      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+          <ModeToggle />
+        </>
+      )}
     </>
   );
 }
