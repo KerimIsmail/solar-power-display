@@ -8,20 +8,26 @@ import {
 
 type Props = {
   title: string;
-  datum: string;
-  number: number;
+  description?: string;
+  content?: string;
 };
 
-export default function NumberDisplay({ title, datum, number }: Readonly<Props>) {
+export default function NumberDisplay({
+  title,
+  description,
+  content,
+}: Readonly<Props>) {
   return (
     <Card className="flex-grow">
-      <CardHeader>
-        <CardTitle>{ title }</CardTitle>
-        <CardDescription>{ datum }</CardDescription>
+      <CardHeader className="pb-2">
+        <CardTitle>{title}</CardTitle>
+        {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
-      <CardContent>
-        <p>{ number } khw</p>
-      </CardContent>
+      {content && (
+        <CardContent className="flex justify-center font-bold text-3xl pb-8">
+          <p>{content}</p>
+        </CardContent>
+      )}
     </Card>
   );
 }

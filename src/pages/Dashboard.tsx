@@ -1,6 +1,7 @@
 import ChartDisplay from "@/components/chartDisplay/ChartDisplay";
 import { ModeToggle } from "@/components/mode-toggle";
 import NumberDisplay from "@/components/numberDisplay/NumberDisplay";
+import SingleNumberDisplay from "@/components/singleNumberDisplay/SingleNumberDisplay";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -21,13 +22,21 @@ export default function Dashboard() {
 
   return (
     <>
-      <NumberDisplay title="Jetzt" datum="12.08.2000" number={123} />
+      <SingleNumberDisplay content="1000" />
 
       <ChartDisplay title="t" />
 
-      <div className="flex gap-10">
-        <NumberDisplay title="Tagesertrag" datum="12.08.2000" number={123} />
-        <NumberDisplay title="Gesamtertrag" datum="12.08.2000" number={1000} />
+      <div className="flex gap-5">
+        <NumberDisplay
+          title="Tagesertrag"
+          description="27.11.2024"
+          content="123"
+        />
+        <NumberDisplay
+          title="Gesamtertrag"
+          description="Seit 2004"
+          content="1000"
+        />
       </div>
 
       <ModeToggle />
