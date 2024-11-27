@@ -1,3 +1,4 @@
+import ChartDisplay from "@/components/chartDisplay/ChartDisplay";
 import { ModeToggle } from "@/components/mode-toggle";
 import NumberDisplay from "@/components/numberDisplay/NumberDisplay";
 import axios from "axios";
@@ -21,6 +22,8 @@ export default function Dashboard() {
   return (
     <>
       <NumberDisplay title="Jetzt" datum="12.08.2000" number={123} />
+
+      <ChartDisplay title="t" />
 
       <div className="flex gap-10">
         <NumberDisplay title="Tagesertrag" datum="12.08.2000" number={123} />
