@@ -13,6 +13,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
+import { Measurement } from "@/types/BackendData";
 
 const chartConfig = {
   watt: {
@@ -24,17 +25,15 @@ const chartConfig = {
 type Props = {
   title: string;
   description?: string;
-  data: any;
-  isLoading: boolean;
+  data: Measurement[] | null;
 };
 
 export default function ChartDisplay({
   title,
   description,
   data,
-  isLoading,
 }: Readonly<Props>) {
-  const formatTimestampToTime = (timestamp) => {
+  const formatTimestampToTime = (timestamp: string) => {
     const date = new Date(timestamp);
     const hours = date.getHours().toString().padStart(2, "0");
     const minutes = date.getMinutes().toString().padStart(2, "0");
@@ -43,7 +42,7 @@ export default function ChartDisplay({
 
   return (
     <>
-      {!isLoading ? (
+      {data ? (
         <Card>
           <CardHeader>
             <CardTitle>{title}</CardTitle>

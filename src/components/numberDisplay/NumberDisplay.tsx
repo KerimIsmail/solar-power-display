@@ -10,19 +10,17 @@ import { Skeleton } from "../ui/skeleton";
 type Props = {
   title: string;
   description?: string;
-  content?: string;
-  isLoading: boolean;
+  content: string | null;
 };
 
 export default function NumberDisplay({
   title,
   description,
   content,
-  isLoading,
 }: Readonly<Props>) {
   return (
     <>
-      {!isLoading ? (
+      {content ? (
         <Card className="flex-grow">
           <CardHeader className="pb-2">
             <CardTitle>{title}</CardTitle>

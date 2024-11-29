@@ -3,17 +3,15 @@ import { AiFillThunderbolt } from "react-icons/ai";
 import { Skeleton } from "../ui/skeleton";
 
 type Props = {
-  content: string;
-  isLoading: boolean;
+  content: string | null;
 };
 
 export default function SingleNumberDisplay({
   content,
-  isLoading,
 }: Readonly<Props>) {
   return (
     <>
-      {!isLoading ? (
+      {content ? (
         <Card className="flex-grow">
           <CardContent className="flex justify-center font-bold text-5xl pt-6">
             <div className="w-full">
