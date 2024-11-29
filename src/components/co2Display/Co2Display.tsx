@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "../ui/skeleton";
+import { FaLeaf } from "react-icons/fa6";
 
 type Props = {
   title: string;
@@ -21,17 +22,16 @@ export default function Co2Display({
   return (
     <>
       {content ? (
-        <Card className="flex-grow">
+        <Card className="flex-grow border-green-300 bg-green-50 dark:bg-transparent dark:border-green-500">
           <CardHeader className="pb-2">
             <CardTitle>{title}</CardTitle>
             {description && <CardDescription>{description}</CardDescription>}
           </CardHeader>
           {content && (
-            <CardContent className="flex justify-center font-bold text-3xl pb-8">
-              <p>
-                {content}{" "}
-                <span className="text-muted-foreground text-2xl">kg</span>
-              </p>
+            <CardContent className="flex justify-center font-bold text-4xl pb-8 items-end gap-1">
+              <FaLeaf className="text-green-500 text-2xl -translate-y-0.5" />
+              <p>{content} </p>
+              <span className="text-muted-foreground text-2xl">kg</span>
             </CardContent>
           )}
         </Card>
