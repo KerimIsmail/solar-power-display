@@ -1,10 +1,10 @@
 export type Measurement = {
   timestamp: string;
-  currentEnergy: string;
+  currentEnergy: number;
 }
 
 export type BackendData = {
-  daily: string;
-  total: string;
+  daily: number;
+  total: number;
   measurements: Measurement[];
 }

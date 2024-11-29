@@ -10,7 +10,7 @@ import { Skeleton } from "../ui/skeleton";
 type Props = {
   title: string;
   description?: string;
-  content: string | null;
+  content: number | null;
 };
 
 export default function NumberDisplay({
@@ -26,14 +26,12 @@ export default function NumberDisplay({
             <CardTitle>{title}</CardTitle>
             {description && <CardDescription>{description}</CardDescription>}
           </CardHeader>
-          {content && (
-            <CardContent className="flex justify-center font-bold text-3xl pb-8">
-              <p>
-                {content}{" "}
-                <span className="text-muted-foreground text-2xl">kWh</span>
-              </p>
-            </CardContent>
-          )}
+          <CardContent className="flex justify-center font-bold text-3xl pb-8">
+            <p>
+              {content.toFixed(2)}{" "}
+              <span className="text-muted-foreground text-2xl">kWh</span>
+            </p>
+          </CardContent>
         </Card>
       ) : (
         <div className="flex flex-col space-y-3 flex-grow">

@@ -3,7 +3,7 @@ import { AiFillThunderbolt } from "react-icons/ai";
 import { Skeleton } from "../ui/skeleton";
 
 type Props = {
-  content: string | null;
+  content: number | null;
 };
 
 export default function SingleNumberDisplay({

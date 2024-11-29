@@ -31,7 +31,7 @@ export default function Co2Display({
             <CardContent className="flex justify-center font-bold text-4xl pb-8 items-end gap-1">
               <FaLeaf className="text-green-500 text-2xl -translate-y-0.5" />
               <p>{content} </p>
-              <span className="text-muted-foreground text-2xl">kg</span>
+              <span className="text-muted-foreground text-2xl">t</span>
             </CardContent>
           )}
         </Card>

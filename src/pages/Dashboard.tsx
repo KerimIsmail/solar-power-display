@@ -4,6 +4,8 @@ import { ModeToggle } from "@/components/mode-toggle";
 import NumberDisplay from "@/components/numberDisplay/NumberDisplay";
 import SingleNumberDisplay from "@/components/singleNumberDisplay/SingleNumberDisplay";
 import { TEST_DATA } from "@/fixtures/TestData";
+import calculateSavedCO2 from "@/helper/CalculateSavedCO2";
+import getCurrentDate from "@/helper/GetCurrentDate";
 import { BackendData } from "@/types/BackendData";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -32,26 +34,6 @@ export default function Dashboard() {
 
     return () => clearInterval(interval);
   }, []);
-
-  function getCurrentDate() {
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, "0");
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const year = today.getFullYear();
-
-    return `${day}.${month}.${year}`;
-  }
-
-  function calculateSavedCO2(
-    producedEnergy: number,
-    co2PerKWh: number = 0.38
-  ): number {
-    if (producedEnergy < 0) {
-      return 0;
-    }
-
-    return producedEnergy * co2PerKWh;
-  }
 
   return (
     <>
