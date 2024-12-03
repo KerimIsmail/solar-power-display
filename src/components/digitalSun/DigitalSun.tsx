@@ -4,11 +4,13 @@ import "./DigitalSun.css";
 type DigitalSunProps = {
   altitude: number | null; // Winkel über dem Horizont
   azimuth: number | null; // Winkel entlang des Horizonts
+  icon: string;
 };
 
 export default function DigitalSun({
   altitude,
   azimuth,
+  icon,
 }: Readonly<DigitalSunProps>) {
   if (
     altitude === null ||
@@ -67,6 +69,20 @@ export default function DigitalSun({
           animation: "sunPulse 3s ease-in infinite 2s",
         }}
       ></div>
+
+      <img
+        alt="Sonne"
+        src={`https://openweathermap.org/img/wn/${icon}.png`}
+        width={60}
+        height={60}
+        style={{
+          position: "absolute",
+          left: `${x}px`,
+          top: `${y}px`,
+          transform: "translate(-50%, -50%)",
+          opacity: 0,
+        }}
+      />
     </>
   );
 }

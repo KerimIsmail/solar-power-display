@@ -17,6 +17,7 @@ export default function Dashboard() {
   const [data, setData] = useState<null | BackendData>(null);
   const [sunData, setSunData] = useState<null | SunData>(null);
   const [sunTimes, setSunTimes] = useState<null | SunTimes>(null);
+  const [openWheatermapData, setOpenWheatermapData] = useState<null | any>(null);
 
   useEffect(() => {
     const fetchData = () => {
@@ -36,6 +37,28 @@ export default function Dashboard() {
     const interval = setInterval(() => {
       fetchData();
     }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const fetchData = () => {
+      axios
+        .get("https://api.openweathermap.org/data/2.5/weather?lat=51.93598&lon=6.87378&appid=a9b63ec9aef8a4674c04cde8d4c8cc9e")
+        .then((response) => {
+          setOpenWheatermapData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          setOpenWheatermapData(null);
+        });
+    };
+
+    fetchData();
+
+    const interval = setInterval(() => {
+      fetchData();
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -63,6 +86,7 @@ export default function Dashboard() {
       <DigitalSun
         altitude={sunData ? sunData.altitude : null}
         azimuth={sunData ? sunData.azimuth : null}
+        icon={openWheatermapData ? openWheatermapData.weather[0].icon : ""}
       />
 
       <SingleNumberDisplay
