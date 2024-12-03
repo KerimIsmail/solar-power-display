@@ -11,7 +11,7 @@ export default function SingleNumberDisplay({
 }: Readonly<Props>) {
   return (
     <>
-      {content ? (
+      {content !== null ? (
         <Card className="flex-grow">
           <CardContent className="flex justify-center font-bold text-5xl pt-6">
             <div className="w-full">

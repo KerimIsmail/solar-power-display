@@ -34,7 +34,7 @@ export default function DigitalSun({
           backgroundColor: "#ffd900",
           opacity: 0.6,
           transform: "translate(-50%, -50%)",
-          animation: "pulse 3s ease-in infinite",
+          animation: "sunPulse 3s ease-in infinite",
         }}
       ></div>
 
@@ -49,7 +49,7 @@ export default function DigitalSun({
           backgroundColor: "#ffd900",
           opacity: 0.8,
           transform: "translate(-50%, -50%)",
-          animation: "pulse 3s ease-in infinite 1s",
+          animation: "sunPulse 3s ease-in infinite 1s",
         }}
       ></div>
 
@@ -64,7 +64,7 @@ export default function DigitalSun({
           backgroundColor: "#ffd900",
           opacity: 0.2,
           transform: "translate(-50%, -50%)",
-          animation: "pulse 3s ease-in infinite 2s",
+          animation: "sunPulse 3s ease-in infinite 2s",
         }}
       ></div>
     </>

@@ -20,7 +20,7 @@ export default function NumberDisplay({
 }: Readonly<Props>) {
   return (
     <>
-      {content ? (
+      {content !== null ? (
         <Card className="flex-grow">
           <CardHeader className="pb-2">
             <CardTitle>{title}</CardTitle>

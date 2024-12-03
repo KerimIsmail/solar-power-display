@@ -21,7 +21,7 @@ export default function Co2Display({
 }: Readonly<Props>) {
   return (
     <>
-      {content ? (
+      {content !== null ? (
         <Card className="flex-grow border-green-300 bg-green-50 dark:bg-transparent dark:border-green-500">
           <CardHeader className="pb-2">
             <CardTitle>{title}</CardTitle>
