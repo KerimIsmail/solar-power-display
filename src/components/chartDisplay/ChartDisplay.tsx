@@ -59,6 +59,7 @@ export default function ChartDisplay({
                 margin={{
                   left: 0,
                   right: 12,
+                  top: 15,
                 }}
               >
                 <CartesianGrid vertical={true} />
