@@ -1,3 +1,4 @@
+import { calculateSunScreenPosition } from "@/helper/SunCalcHelper";
 import "./DigitalSun.css";
 
 type DigitalSunProps = {
@@ -9,24 +10,16 @@ export default function DigitalSun({
   altitude,
   azimuth,
 }: Readonly<DigitalSunProps>) {
-  if (altitude === null || azimuth === null || altitude < -Math.PI / 2) {
+  if (
+    altitude === null ||
+    azimuth === null ||
     // Sonne nicht sichtbar
-    return null;
+    altitude < -Math.PI / 2
+  ) {
+    return;
   }
 
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
-  const topPadding = 50;
-
-  // X: Position entlang des Horizonts (links nach rechts)
-  // Azimuth: -Math.PI bis Math.PI -> Verschieben zu 0 bis 2*Math.PI, dann skalieren auf screenWidth
-  const normalizedAzimuth = azimuth + Math.PI; // Bereich von 0 bis 2*Math.PI
-  const x = (normalizedAzimuth / (2 * Math.PI)) * screenWidth;
-
-  // Y: Höhe über dem Horizont, basierend auf Altitude
-  // Altitude: -Math.PI/2 (Tiefpunkt) bis Math.PI/2 (Zenit)
-  const horizonY = screenHeight - topPadding;
-  const y = horizonY - Math.sin(altitude) * horizonY;
+  const { x, y } = calculateSunScreenPosition(azimuth, altitude);
 
   return (
     <>

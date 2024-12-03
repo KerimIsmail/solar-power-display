@@ -4,25 +4,19 @@ import DigitalSun from "@/components/digitalSun/DigitalSun";
 import { ModeToggle } from "@/components/mode-toggle";
 import NumberDisplay from "@/components/numberDisplay/NumberDisplay";
 import SingleNumberDisplay from "@/components/singleNumberDisplay/SingleNumberDisplay";
+import SunPath from "@/components/sunPath/SunPath";
 import { TEST_DATA } from "@/fixtures/TestData";
 import calculateSavedCO2 from "@/helper/CalculateSavedCO2";
 import getCurrentDate from "@/helper/GetCurrentDate";
-import { BackendData, SunData } from "@/types/BackendData";
+import { getSunPosition, getSunTimes } from "@/helper/SunCalcHelper";
+import { BackendData, SunData, SunTimes } from "@/types/BackendData";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import SunCalc from "suncalc";
-
-const testData = [
-  { altitude: 0, azimuth: -Math.PI }, // Sonnenaufgang (am Horizont, ganz links)
-  { altitude: Math.PI / 4, azimuth: -Math.PI / 2 }, // Vormittag (im Bogen steigend)
-  { altitude: Math.PI / 2, azimuth: 0 }, // Zenit (höchster Punkt, mittig)
-  { altitude: Math.PI / 4, azimuth: Math.PI / 2 }, // Nachmittag (im Bogen fallend)
-  { altitude: 0, azimuth: Math.PI }, // Sonnenuntergang (am Horizont, ganz rechts)
-]
 
 export default function Dashboard() {
   const [data, setData] = useState<null | BackendData>(null);
   const [sunData, setSunData] = useState<null | SunData>(null);
+  const [sunTimes, setSunTimes] = useState<null | SunTimes>(null);
 
   useEffect(() => {
     const fetchData = () => {
@@ -47,22 +41,30 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    getSunPosition();
+    updateSunData();
 
     const interval = setInterval(() => {
-      getSunPosition();
+      updateSunData();
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
-  function getSunPosition() {
-    setSunData(SunCalc.getPosition(new Date(), 51.93598, 6.87378));
+  function updateSunData() {
+    setSunData(getSunPosition(new Date()));
+    setSunTimes(getSunTimes(new Date()));
   }
 
   return (
     <>
-      <DigitalSun altitude={sunData ? sunData.altitude : null} azimuth={sunData ? sunData.azimuth : null}/>
-      
+      <SunPath
+        sunrise={sunTimes ? sunTimes.sunrise : null}
+        sunset={sunTimes ? sunTimes.sunset : null}
+      />
+      <DigitalSun
+        altitude={sunData ? sunData.altitude : null}
+        azimuth={sunData ? sunData.azimuth : null}
+      />
+
       <SingleNumberDisplay
         content={
           data

@@ -13,3 +13,8 @@ export type SunData = {
   azimuth: number;
   altitude: number;
 }
+
+export type SunTimes = {
+  sunrise: Date;
+  sunset: Date;
+}
