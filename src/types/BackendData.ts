@@ -8,3 +8,8 @@ export type BackendData = {
   total: number;
   measurements: Measurement[];
 }
+
+export type SunData = {
+  azimuth: number;
+  altitude: number;
+}
