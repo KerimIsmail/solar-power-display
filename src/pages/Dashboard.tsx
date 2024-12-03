@@ -12,25 +12,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import SunCalc from "suncalc";
 
-/*const testData = [
-  // Sonnenaufgang (Osten, knapp über dem Horizont)
-  { azimuth: 90, altitude: 5 },
-
-  // Vormittag (Südosten, Sonne höher am Himmel)
-  { azimuth: 135, altitude: 30 },
-
-  // Mittag (Süden, Sonne am höchsten Punkt)
-  { azimuth: 180, altitude: 70 },
-
-  // Nachmittag (Südwesten, Sonne sinkt)
-  { azimuth: 225, altitude: -40 },
-
-  // Sonnenuntergang (Westen, knapp über dem Horizont)
-  { azimuth: 270, altitude: -5 },
-
-  // Nacht (Sonne unter dem Horizont, nicht sichtbar)
-  { azimuth: 0, altitude: -10 },
-];*/
+const testData = [
+  { altitude: 0, azimuth: -Math.PI }, // Sonnenaufgang (am Horizont, ganz links)
+  { altitude: Math.PI / 4, azimuth: -Math.PI / 2 }, // Vormittag (im Bogen steigend)
+  { altitude: Math.PI / 2, azimuth: 0 }, // Zenit (höchster Punkt, mittig)
+  { altitude: Math.PI / 4, azimuth: Math.PI / 2 }, // Nachmittag (im Bogen fallend)
+  { altitude: 0, azimuth: Math.PI }, // Sonnenuntergang (am Horizont, ganz rechts)
+]
 
 export default function Dashboard() {
   const [data, setData] = useState<null | BackendData>(null);
@@ -68,12 +56,12 @@ export default function Dashboard() {
   }, []);
 
   function getSunPosition() {
-    setSunData(SunCalc.getPosition(new Date(), 51.944908, 6.86775));
+    setSunData(SunCalc.getPosition(new Date(), 51.93598, 6.87378));
   }
 
   return (
     <>
-      <DigitalSun altitude={sunData ? sunData.altitude : null} />
+      <DigitalSun altitude={sunData ? sunData.altitude : null} azimuth={sunData ? sunData.azimuth : null}/>
       
       <SingleNumberDisplay
         content={
