@@ -18,6 +18,7 @@ export default function DigitalSun({
   const y = horizonY - (screenHeight / 2) * (altitude / 90);
 
   console.log("Altitude:", altitude);
+  return;
 
   return (
     <div

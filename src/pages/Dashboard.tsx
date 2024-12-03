@@ -12,7 +12,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import SunCalc from "suncalc";
 
-const testData = [
+/*const testData = [
   // Sonnenaufgang (Osten, knapp über dem Horizont)
   { azimuth: 90, altitude: 5 },
 
@@ -30,7 +30,7 @@ const testData = [
 
   // Nacht (Sonne unter dem Horizont, nicht sichtbar)
   { azimuth: 0, altitude: -10 },
-];
+];*/
 
 export default function Dashboard() {
   const [data, setData] = useState<null | BackendData>(null);
@@ -73,6 +73,8 @@ export default function Dashboard() {
 
   return (
     <>
+      <DigitalSun altitude={sunData ? sunData.altitude : null} />
+      
       <SingleNumberDisplay
         content={
           data
