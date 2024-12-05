@@ -10,7 +10,6 @@ type DigitalSunProps = {
 export default function DigitalSun({
   altitude,
   azimuth,
-  icon,
 }: Readonly<DigitalSunProps>) {
   if (
     altitude === null ||
@@ -69,7 +68,7 @@ export default function DigitalSun({
           animation: "sunPulse 3s ease-in infinite 2s",
         }}
       ></div>
-
+{/*
       <img
         alt="Sonne"
         src={`https://openweathermap.org/img/wn/${icon}.png`}
@@ -82,7 +81,7 @@ export default function DigitalSun({
           transform: "translate(-50%, -50%)",
           opacity: 0,
         }}
-      />
+      />*/}
     </>
   );
 }
