@@ -3,6 +3,21 @@
 @tailwind utilities;
 
 
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  scrollbar-width: none;
+}
+
+::-moz-selection { /* Code for Firefox */
+  color: red;
+  background: rgba(255, 255, 255, 0.103);
+}
+
+::selection {
+  color: red;
+  background: rgba(255, 255, 255, 0.103);
+}
 
 @layer base {
   :root {
