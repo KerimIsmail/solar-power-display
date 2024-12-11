@@ -79,15 +79,17 @@ export default function Dashboard() {
 
   return (
     <>
-      <SunPath
-        sunrise={sunTimes ? sunTimes.sunrise : null}
-        sunset={sunTimes ? sunTimes.sunset : null}
-      />
-      <DigitalSun
-        altitude={sunData ? sunData.altitude : null}
-        azimuth={sunData ? sunData.azimuth : null}
-        icon={openWheatermapData ? openWheatermapData.weather[0].icon : ""}
-      />
+      <div className="invisible md:visible">
+        <SunPath
+          sunrise={sunTimes ? sunTimes.sunrise : null}
+          sunset={sunTimes ? sunTimes.sunset : null}
+        />
+        <DigitalSun
+          altitude={sunData ? sunData.altitude : null}
+          azimuth={sunData ? sunData.azimuth : null}
+          icon={openWheatermapData ? openWheatermapData.weather[0].icon : ""}
+        />
+      </div>
 
       <SingleNumberDisplay
         content={
@@ -99,7 +101,7 @@ export default function Dashboard() {
 
       <ChartDisplay title="Verlauf" data={data ? data.measurements : null} />
 
-      <div className="flex gap-5">
+      <div className="flex gap-5 flex-wrap">
         <NumberDisplay
           title="Tagesertrag"
           description={getCurrentDate()}
